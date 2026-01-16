@@ -1,4 +1,4 @@
-```markdown
+
 # Scam Detection Video Annotation Tool 🕵️‍♂️🎬
 
 A **Streamlit-based human-in-the-loop annotation tool** designed to create high-quality training datasets for scam video detection. This tool leverages Google's **Gemini API** to generate AI-assisted reasoning, which human annotators can review, edit, and validate before saving.
@@ -25,8 +25,6 @@ A **Streamlit-based human-in-the-loop annotation tool** designed to create high-
 ```bash
 pip install streamlit google-generativeai typing-extensions
 ```
-
----
 
 ## ⚙️ Setup
 
