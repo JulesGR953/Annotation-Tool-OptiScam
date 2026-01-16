@@ -1,51 +1,54 @@
-Instructions to Run the Scam Detection Annotation Tool
+Scam Detection Video Annotation Tool
+A Streamlit-based human-in-the-loop annotation tool for creating training datasets to detect scam videos. Uses Google's Gemini API to generate AI-assisted reasoning that can be reviewed and edited before saving.
+Features
+
+🎬 Video playback with metadata display
+🤖 AI-powered reasoning generation using Gemini
+✏️ Editable AI responses before saving
+🔄 Automatic API key rotation for rate limit handling
+📊 Progress tracking and statistics
+💾 Automatic save with resume capability
+🎯 Manual label override (force AI perspective)
+
+Installation
 Prerequisites
-1. Install Required Software
 
-Python 3.8+ (Download from python.org)
-pip (usually comes with Python)
+Python 3.8 or higher
+Google Gemini API key(s) - Get from Google AI Studio
 
-2. Install Required Python Packages
-Open a terminal/command prompt and run:
+Install Dependencies
 bashpip install streamlit google-generativeai typing-extensions
-Configuration
-1. Set Up Gemini API Keys
-You need Google Gemini API keys. Get them from Google AI Studio.
-Option A: Set Environment Variables (Recommended)
-Windows (Command Prompt):
-cmdset GEMINI_API_KEY_1=your_first_api_key_here
-set GEMINI_API_KEY_2=your_second_api_key_here
-set GEMINI_API_KEY_3=your_third_api_key_here
-set GEMINI_API_KEY_4=your_fourth_api_key_here
-set GEMINI_API_KEY_5=your_fifth_api_key_here
-Windows (PowerShell):
-powershell$env:GEMINI_API_KEY_1="your_first_api_key_here"
-$env:GEMINI_API_KEY_2="your_second_api_key_here"
-$env:GEMINI_API_KEY_3="your_third_api_key_here"
-$env:GEMINI_API_KEY_4="your_fourth_api_key_here"
-$env:GEMINI_API_KEY_5="your_fifth_api_key_here"
-Mac/Linux:
-bashexport GEMINI_API_KEY_1="your_first_api_key_here"
-export GEMINI_API_KEY_2="your_second_api_key_here"
-export GEMINI_API_KEY_3="your_third_api_key_here"
-export GEMINI_API_KEY_4="your_fourth_api_key_here"
-export GEMINI_API_KEY_5="your_fifth_api_key_here"
-Option B: Edit the Code Directly
-In the Python file, replace "KEY1", "KEY2", etc. with your actual API keys:
+Setup
+1. Configure API Keys
+Option A: Environment Variables (Recommended)
+bash# Linux/Mac
+export GEMINI_API_KEY_1="your_api_key_here"
+export GEMINI_API_KEY_2="your_api_key_here"
+export GEMINI_API_KEY_3="your_api_key_here"
+export GEMINI_API_KEY_4="your_api_key_here"
+export GEMINI_API_KEY_5="your_api_key_here"
+
+# Windows Command Prompt
+set GEMINI_API_KEY_1=your_api_key_here
+set GEMINI_API_KEY_2=your_api_key_here
+
+# Windows PowerShell
+$env:GEMINI_API_KEY_1="your_api_key_here"
+$env:GEMINI_API_KEY_2="your_api_key_here"
+Option B: Edit Code Directly
+Modify the API_KEYS list in the script:
 pythonAPI_KEYS = [
     "your_actual_api_key_1",
     "your_actual_api_key_2",
-    "your_actual_api_key_3",
-    "your_actual_api_key_4",
-    "your_actual_api_key_5",
+    # Add more keys as needed
 ]
 ```
 
-### 2. Prepare Your Data Structure
+### 2. Prepare Your Data
 
-Organize your files as follows:
+Organize files in this structure:
 ```
-project_folder/
+project/
 ├── videos/
 │   └── youtube/
 │       ├── video1.mp4
@@ -57,88 +60,55 @@ project_folder/
 │       ├── video2.json
 │       └── ...
 └── output/
+    └── sft_dataset_hitl.json
 Metadata JSON Format:
-Each JSON file should contain:
 json{
-  "video_id": "unique_video_id",
+  "video_id": "unique_identifier",
   "title": "Video Title",
-  "description": "Video Description",
-  "label": "scam" or "legit"
+  "description": "Video description text",
+  "label": "scam"
 }
-Running the Application
-1. Navigate to Your Project Folder
-bashcd path/to/your/project/folder
-2. Run Streamlit
-bashstreamlit run your_script_name.py
-Replace your_script_name.py with the actual filename (e.g., annotate.py).
-3. The App Will Open in Your Browser
+Supported Fields:
 
-Usually opens automatically at http://localhost:8501
-If not, manually navigate to that URL
+video_id (required): Unique identifier (must match video filename)
+title (required): Video title
+description (required): Video description
+label (required): "scam" or "legit"
 
-Using the Tool
-Initial Setup (in Sidebar)
+Usage
+1. Run the Application
+bashstreamlit run annotate.py
+The app will open in your browser at http://localhost:8501
+2. Configure Paths (in sidebar)
 
-Video Folder: Enter the path to your videos folder
-
-Example: C:\Users\YourName\Desktop\project\videos\youtube
-
-
-Metadata Folder: Enter the path to your metadata folder
-
-Example: C:\Users\YourName\Desktop\project\metadata\youtube
-
-
-Output File: Enter where you want to save annotations
-
-Example: C:\Users\YourName\Desktop\project\sft_dataset_hitl.json
-
-
+Video Folder: Path to your videos directory
+Metadata Folder: Path to your metadata JSON files
+Output File: Path where annotations will be saved
 Click "🔄 Load Data"
 
-Annotation Workflow
+3. Annotation Workflow
 
-Review the video in the video player
-Check the metadata (title, description, original label)
-Choose AI perspective (Auto/Scam/Legit):
+Watch the video in the player
+Review metadata (title, description, label)
+Select AI perspective:
 
-Auto: Uses the metadata label
+Auto: Uses metadata label
 Scam: Forces AI to critique as scam
 Legit: Forces AI to defend as legitimate
 
 
-Click "🔮 Generate AI Reasoning"
-Edit the response if needed in the text area
-Click "✅ Accept & Save" to save, or "⏭️ Skip" to skip
+Generate reasoning: Click "🔮 Generate AI Reasoning"
+Edit if needed: Modify the AI response in the text area
+Save or skip:
 
-Action Buttons
+✅ Accept & Save: Save annotation and move to next
+⏭️ Skip: Skip without saving
+🔄 Regenerate: Generate new reasoning
 
-✅ Accept & Save: Saves current annotation and moves to next video
-⏭️ Skip: Skips current video without saving
-🔄 Regenerate: Generates new AI reasoning for current video
 
-Troubleshooting
-Rate Limit Errors
 
-The tool automatically switches between API keys when rate limits are hit
-Add more API keys if you encounter frequent rate limiting
-
-Video Not Found
-
-Ensure video filename contains the video_id from metadata
-Check that video file extensions are supported (mp4, avi, mov, mkv)
-
-JSON Errors
-
-Verify metadata JSON files are properly formatted
-Check for missing required fields (video_id, title, description, label)
-
-Module Not Found
-bashpip install --upgrade streamlit google-generativeai typing-extensions
-Port Already in Use
-bashstreamlit run your_script_name.py --server.port 8502
-Output Format
-The tool saves annotations to a JSON file with this structure:
+4. Output Format
+Annotations are saved in this format:
 json[
   {
     "id": "video_id",
@@ -150,14 +120,84 @@ json[
       },
       {
         "from": "response",
-        "value": "Yes. [AI reasoning explaining why it's a scam]"
+        "value": "Yes. The video uses deceptive tactics including..."
       }
     ]
   }
 ]
+Scam Detection Criteria
+The AI evaluates videos based on these criteria:
+
+Commit Crime: Claims to commit crimes (e.g., hacking)
+Unbounded Giveaway: Promises unlimited free items without rules
+Bait and Switch: Promises content but redirects off-site
+Off-Platform Traffic: Lures clicks with fast money promises
+Malware/Phishing: Directs to malicious sites
+Get Rich Quick: Pyramid schemes or unrealistic gains
+Impersonation: Poses as companies or celebrities
+Generator Scams: Fake gift card generators
+
+Features in Detail
+Automatic API Key Rotation
+
+Automatically switches to next API key when rate limits are hit
+Supports up to 5 API keys for extended annotation sessions
+
+Progress Tracking
+
+Total videos count
+Annotated count
+Skipped count
+Remaining videos
+Progress percentage
+
+Resume Capability
+
+Load existing output file to continue annotation
+Automatically skips already processed videos
+
+Manual Override
+
+Force AI to analyze from "Scam" or "Legit" perspective
+Useful when metadata label is incorrect or ambiguous
+
+Troubleshooting
+Rate Limits
+
+Add more API keys to API_KEYS list
+Tool automatically rotates through available keys
+
+Video Not Found
+
+Ensure video filename contains the video_id
+Check file extensions: .mp4, .avi, .mov, .mkv
+
+JSON Parse Errors
+
+Validate JSON format using jsonlint.com
+Ensure all required fields are present
+
+Port Already in Use
+bashstreamlit run annotate.py --server.port 8502
+Module Errors
+bashpip install --upgrade streamlit google-generativeai typing-extensions
+Configuration Options
+Edit these variables in the script to customize:
+pythonMODEL_NAME = "gemini-3-flash-preview"  # Gemini model to use
+SCAM_CRITERIA_TEXT = """..."""          # Scam detection criteria
 Tips
 
-The tool automatically saves progress after each annotation
-You can resume annotation by loading the same output file
-Progress is tracked in the sidebar
-Press Ctrl+C in the terminal to stop the application
+Progress is auto-saved after each annotation
+Use keyboard shortcuts for faster workflow
+Review AI reasoning carefully before accepting
+Use manual override for edge cases
+Keep video files and metadata in sync
+
+License
+MIT License - feel free to modify and distribute
+Contributing
+Contributions welcome! Please open an issue or submit a pull request.
+Support
+For issues or questions, please open a GitHub issue.
+
+Note: This tool requires active internet connection for Gemini API calls. Ensure you have sufficient API quota before starting large annotation sessions.
