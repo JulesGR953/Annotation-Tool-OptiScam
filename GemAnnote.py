@@ -10,11 +10,11 @@ from datetime import datetime
 
 # === CONFIGURATION ===
 API_KEYS = [
-    os.getenv("GEMINI_API_KEY_1", "AIzaSyDlpN6Q_P2sv10wZ89aD5l87BJPRI6JAB0"),
-    os.getenv("GEMINI_API_KEY_2", "AIzaSyBGYrmJAiFc3AnEIuAElnNPgQQArOyJ-PQ"),
-    os.getenv("GEMINI_API_KEY_3", "AIzaSyCXAQwbwO928YgRL1hCnJeDoelO-z0fFSE"),
-    os.getenv("GEMINI_API_KEY_4", "AIzaSyCF2ieGA_lQzndShA7cvmyOsvE921UqqWQ"),
-    os.getenv("GEMINI_API_KEY_5", "AIzaSyAb3CDDF0Y1XOAYkxZOmFYj66a1UO1mf6E"),
+    os.getenv("GEMINI_API_KEY_1", "KEY1"),
+    os.getenv("GEMINI_API_KEY_2", "KEY2"),
+    os.getenv("GEMINI_API_KEY_3", "KEY3"),
+    os.getenv("GEMINI_API_KEY_4", "KEY4"),
+    os.getenv("GEMINI_API_KEY_5", "KEY5"),
 ]
 
 
