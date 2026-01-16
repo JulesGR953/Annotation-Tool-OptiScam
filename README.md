@@ -226,5 +226,5 @@ For issues or questions, please open a GitHub issue.
 ---
 
 **Note**: This tool requires an active internet connection to communicate with the Google Gemini API. Ensure you have sufficient API quota before starting large annotation sessions.
-```
+
 
