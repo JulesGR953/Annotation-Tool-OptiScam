@@ -12,11 +12,11 @@ import numpy as np
 
 # === CONFIGURATION ===
 API_KEYS = [
-    os.getenv("GEMINI_API_KEY_1", "AIzaSyALdQCpRvYKqvDkXuq_0wLsDIRQEpkGvZo"),
-    os.getenv("GEMINI_API_KEY_2", "AIzaSyB__20hU9T5z7qUehgkkTG2nVRJa-TUFNA"),
-    os.getenv("GEMINI_API_KEY_3", "AIzaSyDQR4rhnS8jZf_v4I032NANijlsfPU4As8"),
-    os.getenv("GEMINI_API_KEY_4", "AIzaSyCF2ieGA_lQzndShA7cvmyOsvE921UqqWQ"),
-    os.getenv("GEMINI_API_KEY_5", "AIzaSyAb3CDDF0Y1XOAYkxZOmFYj66a1UO1mf6E"),
+    os.getenv("GEMINI_API_KEY_1", "PUT API"),
+    os.getenv("GEMINI_API_KEY_2", "PUT API"),
+    os.getenv("GEMINI_API_KEY_3", "PUT API"),
+    os.getenv("GEMINI_API_KEY_4", "PUT API"),
+    os.getenv("GEMINI_API_KEY_5", "PUT API"),
 ]
 
 
